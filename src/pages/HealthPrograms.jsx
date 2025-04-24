@@ -1,31 +1,52 @@
-import  { useState } from 'react';
+import { useState,useEffect } from 'react';
+import axios from '../api/axios'; 
 
 const HealthPrograms = () => {
-  const [programs, setPrograms] = useState([
-    { id: 1, name: 'Diabetes Management', description: 'Support program for diabetic patients' },
-    { id: 2, name: 'Antenatal Care', description: 'Care for pregnant women' },
-  ]);
-
+  const [programs, setPrograms] = useState([]);
   const [newProgram, setNewProgram] = useState({ name: '', description: '' });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
+  // Fetch existing programs from the backend
+  const fetchPrograms = async () => {
+    try {
+      const response = await axios.get('/api/healthprograms/');
+      setPrograms(response.data);
+    } catch (error) {
+      setErrorMessage('Failed to load programs');
+    }
+  };
+
+  // Handle input change for new program
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewProgram({ ...newProgram, [name]: value });
   };
 
-  const handleAddProgram = (e) => {
+  // Add a new program
+  const handleAddProgram = async (e) => {
     e.preventDefault();
     if (newProgram.name.trim() === '') return;
 
-    const newEntry = {
-      id: Date.now(),
-      name: newProgram.name,
-      description: newProgram.description,
-    };
+    try {
+      // Send the new program data to the backend
+      const response = await axios.post('/api/healthprograms/', newProgram);
+      // Update the program list with the newly added program
+      setPrograms([...programs, response.data]);
 
-    setPrograms([...programs, newEntry]);
-    setNewProgram({ name: '', description: '' });
+      // Clear the form
+      setNewProgram({ name: '', description: '' });
+      setSuccessMessage('Program added successfully!');
+    } catch (error) {
+      setErrorMessage('Failed to add program.');
+      console.error('Error:', error.response || error);
+    }
   };
+
+  // Load programs when the component mounts
+  useEffect(() => {
+    fetchPrograms();
+  }, []);
 
   return (
     <div className="container mx-auto p-4">
@@ -65,6 +86,8 @@ const HealthPrograms = () => {
         >
           Add Program
         </button>
+        {successMessage && <p className="text-green-600 mt-4">{successMessage}</p>}
+        {errorMessage && <p className="text-red-600 mt-4">{errorMessage}</p>}
       </form>
 
       {/* Program List */}
