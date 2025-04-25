@@ -7,6 +7,7 @@ import HealthPrograms from "./pages/HealthPrograms";
 import Clients from "./pages/Clients";   
 import Notifications from "./pages/Notifications";        
 import ProfileSettings from "./pages/ProfileSettings";  
+import ClientProfile from "./pages/ClientProfile";
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/client-enroll" element={<ClientEnrollment />} />
         <Route path="/health-programs" element={<HealthPrograms />} />
         <Route path="/clients" element={<Clients />} />
+        <Route path="/clients/:id" element={<ClientProfile />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/profile-settings" element={<ProfileSettings />} />
       </Routes>
