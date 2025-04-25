@@ -14,7 +14,7 @@ This is the **React + Vite** based frontend for the **Health Information System*
 
 - [React](https://reactjs.org/)
 - [Vite](https://vitejs.dev/)
-- [Tailwind CSS](https://tailwindcss.com/) (if used)
+- [Tailwind CSS](https://tailwindcss.com/) 
 - RESTful API integration with Django backend
 
 ##  Getting Started
