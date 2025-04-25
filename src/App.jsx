@@ -8,6 +8,7 @@ import Clients from "./pages/Clients";
 import Notifications from "./pages/Notifications";        
 import ProfileSettings from "./pages/ProfileSettings";  
 import ClientProfile from "./pages/ClientProfile";
+import Analytics from "./pages/Analytics";
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/clients" element={<Clients />} />
         <Route path="/clients/:id" element={<ClientProfile />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/analytics" element={<Analytics />} />
         <Route path="/profile-settings" element={<ProfileSettings />} />
       </Routes>
     </Router>
