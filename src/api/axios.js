@@ -9,15 +9,17 @@ const api = axios.create({
   },
 });
 
-// Automatically attach the token for all requests if it exists
 api.interceptors.request.use((config) => {
+  // Skip adding auth headers for registration endpoint
+  if (config.url === "/auth/users/" || config.url.endsWith("/auth/users/")) {
+    return config;
+  }
+  
   const token = localStorage.getItem("access");
-
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
+  
   return config;
 });
-
-export default api;
+export default api;  // Make sure this line exists
