@@ -24,3 +24,7 @@ This is the **React + Vite** based frontend for the **Health Information System*
 ```bash
 git clone https://github.com/your-JaneKahiu/health-system-frontend.git
 cd health-system-frontend
+##Install dependencies
+-npm install
+##Start development server
+-npm run dev
